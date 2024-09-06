@@ -1,0 +1,57 @@
+mixin next-button(nameSheet)
+    if nameSheet===''
+        span.nobutton
+    else
+        - const linkSheet=nameSheet.replace(' ', '_');
+        button(type="submit" name=linkSheet) 
+            span #{nameSheet}
+            span ▶
+mixin back-button(nameSheet)
+    if nameSheet===''
+        span.nobutton 
+    else
+        - const linkSheet=nameSheet.replace(' ', '_');
+        button(type="back"  name=linkSheet) 
+            span ◀
+            span #{nameSheet}
+
+mixin button-cancel()
+    button(type="cancel") x
+
+mixin button-finish(nameSheet)
+    button(type="finish" name=nameSheet) Finish
+
+mixin charmancer-navigation(nameBack='', nameNext='')
+    div.sheet-navigation
+        +back-button(nameBack)
+        +next-button(nameNext)
+
+mixin charmancer-title(pageTitle)
+    div.sheet-title
+        h1.capitalize(data-i18n=pageTitle data-i18n-title=pageTitle)=  pageTitle
+        +button-cancel()
+
+charmancer.sheet-charmancer-intro
+    div.sheet-intro(style="align-items: center;")
+        +charmancer-title('intro')
+        +charmancer-navigation('bonds','statistics')
+
+charmancer.sheet-charmancer-statistics
+    div.sheet-statistics(style="align-items: center;")
+        +charmancer-title('statistics') 
+        +charmancer-navigation('intro','profession')
+
+charmancer.sheet-charmancer-profession
+    div.sheet-profession(style="align-items: center;")
+        +charmancer-title('profession')
+        +charmancer-navigation('statistics','bonds')
+
+charmancer.sheet-charmancer-bonds
+    div.sheet-bonds(style="align-items: center;")
+        +charmancer-title('bonds')  
+        +charmancer-navigation('profession','final details')
+
+charmancer.sheet-charmancer-final-details
+    div.sheet-final-details(style="align-items: center;")
+        +charmancer-title('final details')
+        +charmancer-navigation('bonds','intro')  

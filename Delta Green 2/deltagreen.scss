@@ -1,4 +1,5 @@
 
+
 // FUNCTIONS
 //=============================
 @import 'src/scss/mixins/_functions';
@@ -34,7 +35,9 @@
     @import 'src/scss/toggles/_popup';
 
 
-
+// CHARMANCER
+//=============================
+    @import 'src/scss/charmancer/_charmancer';
 // COMPENDIUM
 //=============================
     @import 'src/scss/compendium/_compendium';

@@ -1,4 +1,80 @@
   
+  .deltaGreenBondsLabel,.deltaGreenBondsText{
+    display:flex;
+    align-items: center;
+    justify-items: left;
+    padding-left:0.3rem;
+    padding-right:0.3rem;
+    input.dgbond{
+        margin:0;
+      padding:0;
+      appearance: none;
+      align-items: center;
+      justify-items: center;
+      width:2.0rem;
+      height:3rem;
+      border-left: 1px solid black ;
+      border-right: 0px;
+      border-top: 1px solid black ;
+      border-bottom: 1px solid black ;
+      border-radius: 0.5rem 0 0 0.5rem;
+      background: grey;
+      &:focus, &:active{
+        outline: none;
+        }
+   &:checked{
+        background: $accent3 ; 
+        color: $before;
+        line-height: 3rem;
+        &:after{
+          content: "▲";
+          font-size: 1.5rem;
+          height: 3rem;
+          width: 2.0rem;
+          align-self: center;
+          justify-self: center;
+        }
+   }
+    }
+
+    input[value='true'].dgflag ~ span.dgbond,
+    span.nodgbond{
+        display:block;
+    }
+    input[value='true'].dgflag ~ span.nodgbond, span.dgbond{
+        display:none;
+    }
+    
+
+    span.dgbond:before{
+            content: "▲";
+
+            font-size: 1.5rem;
+            height: 3rem;
+            width: 2.0rem;
+            align-self: center;
+            justify-self: center;
+    }
+   
+    input[type="text"] {
+
+        text-align: left;
+        text-indent: 1rem;
+        text-transform: capitalize;
+        box-sizing: border-box;
+        border-left: 0px;
+        border-right: 1px solid black ;
+        border-top: 1px solid black ;
+        border-bottom: 1px solid black ;
+        border-radius: 0 0.5rem 0.5rem 0;
+        height:3rem;
+        &:focus, &:active{
+            outline: none;
+        }
+    } 
+  }
+  
+  
   label.input[type='number']{
     width: 100%
   }

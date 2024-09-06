@@ -90,7 +90,7 @@ mixin npcskill(val, key, hide)
 									span(data-i18n=caps title=caps)= caps
 									span :
 							
-							input(style='width:100%;'  name='attr_' + attr +'_name' title='@{' + attr + '_name}' type='text' data-i18n-placeholder='choose one' placeholder='choose one' )
+							input(style='width:100%;'  name='attr_' + attr +'_name' title='@{' + attr + '_name}' type='text' data-i18n-placeholder='enter skill type' placeholder='enter skill type' )
 						span.unedit_text
 							//- const skillRollValue = `@{gm_toggle} &{template:rolls} {{header=^{${caps}} @{${attr}_name}}} {{subheader=@{${attr}}}} {{modifier=[[?{Modifier|,0|+20%,20|+40%,40|-20%,-20|-40%,-40|custom (%),?{custom (%)}}]]}} {{rating=[[@{${attr}}+?{Modifier|,0|+20%,20|+40%,40|-20%,-20|-40%,-40|custom (%),?{custom (%)}}]]}}  {{dice=[[1d100]]}}`;
 							
@@ -294,11 +294,18 @@ mixin advanced_mod_weapons()
 			input.number(type='text' name='attr_selfire_lethality_percent' title='@{repeating_weapons_${x}_selfire_lethality_percent}' value='10' maxlength='2' size='3' style="width: 3rem;")
 			span %
 			
-mixin editablebetterLabel(rollName,titleButton,spanButton='',isPersonal=false)
+mixin editablebetterLabel(rollName,titleButton,spanButton='',isPersonal=false,dgbond=false)
 		h3.aligned-left
 			if (isPersonal)
 				if (titleButton==='')
-					span(name='attr_name' )
+					if (dgbond)
+						div.deltaGreenBondsLabel
+							input.dgflag(type='hidden' name='attr_delta_green_bond')
+							span.dgbond 
+							span.nodgbond 
+							span(name='attr_name' )
+					else
+						span(name='attr_name' )
 				else
 					span(name='attr_' + rollName +'_name' )
 			else
@@ -351,7 +358,7 @@ mixin editablebetterbutton(rollName,titleButton,classButton='pressable',spanButt
 		input(type='hidden' name='attr_'+rollName+'_action' value='')
 
 
-mixin editablebetterbutton_rep(rollName,titleButton,classButton='pressable',spanButton='',personal=false)
+mixin editablebetterbutton_rep(rollName,titleButton,classButton='pressable',spanButton='',personal=false,dgbond=false)
 	.buttonwrapper
 		- var classInfo =classButton;
 		if spanButton === ''
@@ -362,7 +369,7 @@ mixin editablebetterbutton_rep(rollName,titleButton,classButton='pressable',span
 			- classInfo = classInfo+' two';
 
 		button.repeating_roll(type='action' class=classInfo name='attr_'+rollName+'_r' value='@{'+rollName+'_action}') 
-			+editablebetterLabel(rollName,titleButton,spanButton,personal)
+			+editablebetterLabel(rollName,titleButton,spanButton,personal,dgbond)
 		button.none(type='roll' class=classInfo name='roll_'+rollName value='@{'+rollName+'_action}') 	
 		//here to check
 		button.none(type='action' name='act_'+rollName+'-action') 
@@ -380,13 +387,13 @@ mixin input_colored_element(attrName)
 	input.zero_color(name='attr_color_' + attrName type='radio' value='zero' checked)
 	input.vitality-colored(name='attr_' + attrName + '_points' placeholder='-' title='@{' + attrName + '}' type='text' style="width:100%;" value=' ')
 
-mixin button_colored_element(attrName)
+mixin button_colored_element(attrName,dgbond=false)
 	input.usable-color(name='attr_color' type='radio' value='on' checked)
 	.usable-element
-		+editablebetterbutton_rep(attrName,'',`pressable special_div`,``,true)
+		+editablebetterbutton_rep(attrName,'',`pressable special_div`,``,true,dgbond)
 	input.unusable-color(name='attr_color' type='radio' value='off' checked)
 	.unusable-element
-		+editablebetterbutton_rep(attrName,'',`pressable special_div`,``,true)
+		+editablebetterbutton_rep(attrName,'',`pressable special_div`,``,true,dgbond)
 
 mixin betterbutton_npc(rollName,titleButton,classButton='pressable',SpanButton='',personal=false,flag=false)
 	.buttonwrapper

@@ -1,0 +1,76 @@
+.charsheet .obscure {
+  display: none;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 10000;
+}
+.charsheet .obscure .selection-confirm {
+  position: sticky;
+  top: 50%;
+  width: 60%;
+  margin: 5em auto;
+}
+.charsheet .obscure .selection-confirm .selection-confirm-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.5rem;
+}
+
+.obscure {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.sheet-charmancer-intro, .sheet-charmancer-statistics, .sheet-charmancer-profession,
+.sheet-charmancer-bonds, .sheet-charmancer-final-details {
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  width: 80%;
+  min-height: 10rem;
+  transform: translate(-50%, -50%);
+}
+.sheet-charmancer-intro div.sheet-navigation, .sheet-charmancer-statistics div.sheet-navigation, .sheet-charmancer-profession div.sheet-navigation,
+.sheet-charmancer-bonds div.sheet-navigation, .sheet-charmancer-final-details div.sheet-navigation {
+  display: grid;
+  justify-self: center;
+  width: 100%;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  padding: 1em;
+}
+.sheet-charmancer-intro div.sheet-navigation button[type=submit], .sheet-charmancer-intro div.sheet-navigation button[type=back], .sheet-charmancer-intro div.sheet-navigation span.nobutton, .sheet-charmancer-statistics div.sheet-navigation button[type=submit], .sheet-charmancer-statistics div.sheet-navigation button[type=back], .sheet-charmancer-statistics div.sheet-navigation span.nobutton, .sheet-charmancer-profession div.sheet-navigation button[type=submit], .sheet-charmancer-profession div.sheet-navigation button[type=back], .sheet-charmancer-profession div.sheet-navigation span.nobutton,
+.sheet-charmancer-bonds div.sheet-navigation button[type=submit],
+.sheet-charmancer-bonds div.sheet-navigation button[type=back],
+.sheet-charmancer-bonds div.sheet-navigation span.nobutton, .sheet-charmancer-final-details div.sheet-navigation button[type=submit], .sheet-charmancer-final-details div.sheet-navigation button[type=back], .sheet-charmancer-final-details div.sheet-navigation span.nobutton {
+  width: 50%;
+}
+.sheet-charmancer-intro div.sheet-navigation button[type=submit], .sheet-charmancer-statistics div.sheet-navigation button[type=submit], .sheet-charmancer-profession div.sheet-navigation button[type=submit],
+.sheet-charmancer-bonds div.sheet-navigation button[type=submit], .sheet-charmancer-final-details div.sheet-navigation button[type=submit] {
+  justify-self: start;
+}
+.sheet-charmancer-intro div.sheet-navigation button[type=back], .sheet-charmancer-statistics div.sheet-navigation button[type=back], .sheet-charmancer-profession div.sheet-navigation button[type=back],
+.sheet-charmancer-bonds div.sheet-navigation button[type=back], .sheet-charmancer-final-details div.sheet-navigation button[type=back] {
+  justify-self: end;
+}
+.sheet-charmancer-intro div.sheet-title, .sheet-charmancer-statistics div.sheet-title, .sheet-charmancer-profession div.sheet-title,
+.sheet-charmancer-bonds div.sheet-title, .sheet-charmancer-final-details div.sheet-title {
+  display: grid;
+  width: 100%;
+  grid-template-columns: 1fr 3rem;
+  align-items: center;
+}
+.sheet-charmancer-intro div.sheet-title h1, .sheet-charmancer-statistics div.sheet-title h1, .sheet-charmancer-profession div.sheet-title h1,
+.sheet-charmancer-bonds div.sheet-title h1, .sheet-charmancer-final-details div.sheet-title h1 {
+  text-align: center;
+  margin-left: 1.5rem;
+}
+.sheet-charmancer-intro div.sheet-title button, .sheet-charmancer-statistics div.sheet-title button, .sheet-charmancer-profession div.sheet-title button,
+.sheet-charmancer-bonds div.sheet-title button, .sheet-charmancer-final-details div.sheet-title button {
+  width: 2.5rem;
+  height: 2.5rem;
+}

@@ -1,0 +1,75 @@
+.charsheet .obscure {
+    display: none;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 10000;
+    .selection-confirm{
+        position: sticky;
+        top: 50%;
+        width: 60%;
+        margin: 5em auto;
+        .selection-confirm-container{
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0.5rem;
+        }
+        
+    }
+}
+
+.obscure {
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+
+.sheet-charmancer-intro,.sheet-charmancer-statistics,.sheet-charmancer-profession,
+.sheet-charmancer-bonds,.sheet-charmancer-final-details {
+    position: fixed;
+    top: 20%;
+    left: 50%;
+    width: 80%;
+    min-height: 10rem;
+    transform: translate(-50%, -50%);
+    div.sheet-navigation{
+        display:grid;
+        justify-self: center;
+        width:100%;
+        grid-template-columns: 1fr 1fr;
+
+        align-items: center;
+        padding: 1em;
+        
+        button[type="submit"],button[type="back"],span.nobutton{
+            width: 50%;
+        
+        }
+
+        button[type="submit"]{
+            justify-self: start;
+        }
+        button[type="back"]{
+            justify-self: end;
+        }
+        
+    }
+    div.sheet-title{
+        display: grid;
+        width: 100%;
+        grid-template-columns: 1fr 3rem;
+        align-items: center;
+        h1{
+            //I want the text to be centered with respect to the parent div ignoring the second column of fixed size 3re
+            text-align: center;
+            margin-left: 1.5rem;
+        }
+        button{
+            width:2.5rem;
+            height: 2.5rem;
+        }
+    }
+}
