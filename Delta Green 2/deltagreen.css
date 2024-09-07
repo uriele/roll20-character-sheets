@@ -2272,6 +2272,10 @@ input[type=radio].zero_color:checked + input.vitality-colored {
   font-weight: bold;
 }
 
+div.npc, div.handler, div.pc {
+  /* EQUIPMENT
+  ======================= */
+}
 div.npc input[type=text], div.npc input[type=number], div.handler input[type=text], div.handler input[type=number], div.pc input[type=text], div.pc input[type=number] {
   width: 100% !important;
 }
