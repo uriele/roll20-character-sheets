@@ -399,6 +399,12 @@ var handleDragandDrop = function handleDragandDrop() {
   });
 };
 
+on("sheet:compendium-drop", function (eventInfo) {
+  console.info(eventInfo);
+  var default_values_token = {};
+  default_values_token["bar1_link"] = 'sanity_points', default_values_token["bar2_link"] = 'willpower_points', default_values_token["bar3_link"] = 'hit_points', default_values_token["bar1_value"] = 1, default_values_token["bar2_value"] = 2, default_values_token["bar3_value"] = 3, console.info('default values:', default_values_token);
+  setDefaultToken(default_values_token);
+});
 on("change:drop_data", function (eventInfo) {
   var jsonData = JSON.parse(eventInfo.newValue);
   console.log(jsonData);
