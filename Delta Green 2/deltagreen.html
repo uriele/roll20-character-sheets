@@ -1,11 +1,16 @@
 
 <input name="attr_version" type="hidden" value="1.99"/>
+<!-- Link stats to skills-->
+<input type="hidden" name="attr_cd_bar1_l" value="sanity_points"/>
+<input type="hidden" name="attr_cd_bar2_l" value="willpower_points"/>
+<input type="hidden" name="attr_cd_bar3_l" value="hit_points"/>
 <input name="attr_initial_san" type="hidden" value="1"/>
 <input name="attr_initial_con" type="hidden" value="1"/>
 <input name="attr_initial_str" type="hidden" value="1"/>
 <input name="attr_initial_hp" type="hidden" value="1"/>
 <input name="attr_sanity_points_old" type="hidden" value="0"/>
 <input name="attr_breaking_point_old" type="hidden" value="0"/>
+<input name="attr_reached_breaking_points" type="hidden" value="0"/>
 <input name="attr_ritual_skill" type="hidden" value="0"/>
 <input type="hidden" name="attr_character_creation_bonds" value="value"/>
 <button class="none" type="action" name="act_nothing"> </button>
@@ -16,12 +21,14 @@
   <input data-i18n-value="alertness" name="attr_alertness_name" value="alertness"/>
   <input data-i18n-value="anthropology" name="attr_anthropology_name" value="anthropology"/>
   <input data-i18n-value="archeology" name="attr_archeology_name" value="archeology"/>
-  <input data-i18n-value="art" name="attr_art_name" value="art"/>
+  <input data-i18n-value="art 1" name="attr_art_1_name" value="art_1"/>
+  <input data-i18n-value="art 2" name="attr_art_2_name" value="art_2"/>
   <input data-i18n-value="artillery" name="attr_artillery_name" value="artillery"/>
   <input data-i18n-value="athletics" name="attr_athletics_name" value="athletics"/>
   <input data-i18n-value="bureaucracy" name="attr_bureaucracy_name" value="bureaucracy"/>
   <input data-i18n-value="computer science" name="attr_computer_science_name" value="computer science"/>
-  <input data-i18n-value="craft" name="attr_craft_name" value="craft"/>
+  <input data-i18n-value="craft 1" name="attr_craft_1_name" value="craft_1"/>
+  <input data-i18n-value="craft 2" name="attr_craft_2_name" value="craft_2"/>
   <input data-i18n-value="criminology" name="attr_criminology_name" value="criminology"/>
   <input data-i18n-value="demolitions" name="attr_demolitions_name" value="demolitions"/>
   <input data-i18n-value="disguise" name="attr_disguise_name" value="disguise"/>
@@ -37,15 +44,18 @@
   <input data-i18n-value="law" name="attr_law_name" value="law"/>
   <input data-i18n-value="medicine" name="attr_medicine_name" value="medicine"/>
   <input data-i18n-value="melee weapons" name="attr_melee_weapons_name" value="melee weapons"/>
-  <input data-i18n-value="military science" name="attr_military_science_name" value="military science"/>
+  <input data-i18n-value="military science 1" name="attr_military_science_1_name" value="military science 1"/>
+  <input data-i18n-value="military science 2" name="attr_military_science_2_name" value="military science 2"/>
   <input data-i18n-value="navigate" name="attr_navigate_name" value="navigate"/>
   <input data-i18n-value="occult" name="attr_occult_name" value="occult"/>
   <input data-i18n-value="persuade" name="attr_persuade_name" value="persuade"/>
   <input data-i18n-value="pharmacy" name="attr_pharmacy_name" value="pharmacy"/>
   <input data-i18n-value="pilot" name="attr_pilot_name" value="pilot"/>
+  <input data-i18n-value="pilot" name="attr_pilot_name" value="pilot"/>
   <input data-i18n-value="psychotherapy" name="attr_psychotherapy_name" value="psychotherapy"/>
   <input data-i18n-value="ride" name="attr_ride_name" value="ride"/>
-  <input data-i18n-value="science" name="attr_science_name" value="science"/>
+  <input data-i18n-value="science 1" name="attr_science_1_name" value="science 1"/>
+  <input data-i18n-value="science 2" name="attr_science_2_name" value="science 2"/>
   <input data-i18n-value="search" name="attr_search_name" value="search"/>
   <input data-i18n-value="sigint" name="attr_sigint_name" value="sigint"/>
   <input data-i18n-value="stealth" name="attr_stealth_name" value="stealth"/>
@@ -62,6 +72,7 @@ each (skill,_) in skills1
 -->
 <datalist id="weaponskills">
   <option value="@{athletics}">athletics</option>
+  <option value="@{artillery}">artillery</option>
   <option value="@{demolitions}">demolitions</option>
   <option value="@{firearms}">firearms</option>
   <option value="@{heavy_weapons}">heavy weapons</option>
@@ -80,6 +91,7 @@ each (skill,_) in skills1
   <option value="@{ritual_skill}">ritual_skill</option>
   <option value="@{unnatural}">unnatural</option>
   <option value="@{athletics}">athletics</option>
+  <option value="@{artillery}">artillery</option>
   <option value="@{demolitions}">demolitions</option>
   <option value="@{firearms}">firearms</option>
   <option value="@{heavy_weapons}">heavy weapons</option>
@@ -142,12 +154,17 @@ each (skill,_) in skills1
 <!--datalist(id="defensive-qualities")
 each val,key in defensiveQualities
 	+listskills(key)
+
 -->
 <div class="compendium-drop-target">
   <input name="attr_drop_name" type="hidden" accept="Name"/>
   <input name="attr_drop_data" type="hidden" accept="data"/>
   <!-- TABS-->
   <!-- =============================-->
+  <div class="picture">
+    <input class="avatar_checker" type="hidden" name="attr_character_avatar"/>
+    <div class="dmi_avatar"><img name="attr_character_avatar"/></div>
+  </div>
   <input class="use_global_modifier" type="hidden" name="attr_use_global_modifier"/>
   <div class="tabs grid">
     <!-- Buttons to toggle on GM whisper-->
@@ -156,7 +173,8 @@ each val,key in defensiveQualities
         <input class="whisper-toggle" name="attr_gm_toggle" type="checkbox" value="/w gm"/><span class="slider"></span>
       </label>
     </div>
-    <!-- LOGO--><img alt="Delta Green" src="https://raw.githubusercontent.com/Roll20/roll20-character-sheets/master/Delta%20Green%202/img/deltagreenlogo.jpg"/>
+    <!-- LOGO-->
+    <!--img(alt='Delta Green' src='https://raw.githubusercontent.com/Roll20/roll20-character-sheets/master/Delta%20Green%202/img/deltagreenlogo.jpg')--><img alt="Delta Green" src="https://raw.githubusercontent.com/uriele/roll20-character-sheets/8cc07dbbf9acafd43b1de49bcaf08dbcee19e3a6/Delta%20Green%202/img/deltagreenlogo.svg"/>
     <div class="last">
       <input class="settinggear" name="attr_mysettings" type="checkbox" value="settings"/><span></span>
     </div>
@@ -4136,7 +4154,7 @@ each val,key in defensiveQualities
                 <input class="edit_test" type="hidden" name="attr_charisma_score" value=""/><span class="align-center" name="attr_charisma_score"></span>
               </div>
               <div class="grid__item align-center">
-                <input class="edit_test" type="hidden" name="attr_has_breaking_points" value=""/><span class="align-center" name="attr_has_breaking_points"></span>
+                <input class="edit_test" type="hidden" name="attr_reached_breaking_point" value=""/><span class="align-center" name="attr_reached_breaking_point"></span>
               </div>
               <div class="grid__item align-center">
                 <input class="edit_test" type="hidden" name="attr_violence_adapted" value=""/><span class="align-center" name="attr_violence_adapted"></span>
@@ -4764,6 +4782,7 @@ const _repeating_sections={
 
 const _score_info =  [
 	`willpower_points_max`,
+	`charisma_score`,
 	`character_creation_bonds`,
 	`repeating_bonds_setScore`,
 	`repeating_bonds_score`,
@@ -5356,24 +5375,25 @@ const addTargetStat=(values,names,attrName) => {
 const updatebondscore = (values,update,manualscore=true) => {
 
 	const character_creation_bonds = values[`character_creation_bonds`] === 'active' ? true : false;
-	const willpower_points_max = parseInt(values.willpower_points_max) || 0;
-	const initial_willpower =  (character_creation_bonds) ? willpower_points_max : Math.floor(willpower_points_max/2);
+	const charisma_score = parseInt(values[`charisma_score`]) || 0;
+	const bond_value =  (character_creation_bonds) ? charisma_score : Math.floor(charisma_score/2);
 	const flag = (manualscore) ? 1 : parseInt(values[`repeating_bonds_setScore`]) || 0;
 	const bond_score_old = parseInt(values[`repeating_bonds_score_old`]) || 0;
 	var bond_score = 0;
 	
 	if (flag === 0) {
-		bond_score = initial_willpower; 
+		bond_score = bond_value; 
 	} else {
 		bond_score = parseInt(values[`repeating_bonds_score`]) || 0;
-		if (bond_score > willpower_points_max) {
-			if (willpower_points_max > bond_score_old) {
-				bond_score = willpower_points_max;
+		if (bond_score > charisma_score) {
+			if (bond_score_old<= charisma_score) {
+				bond_score = charisma_score;
 			}
+
 		}
 	}    
 	update[`repeating_bonds_score`] = bond_score;
-	update[`repeating_bonds_score_old`] = bond_score_old;
+	update[`repeating_bonds_score_old`] = bond_score;
 	update[`repeating_bonds_setScore`] = 1;
 	update[`repeating_bonds_color`] = BondButtonColor(bond_score);
 }
@@ -5483,7 +5503,7 @@ const definesanroll=(san,sold,bnew,bold,sanflags,character_name,San2_disorder={}
     }
 
     setAttrs(update, {silent:true},()=>{
-
+               console.info('update',update)
     });
 
     startRoll(`${rollValue} {{isSkill=[[${_isSkill}]]}}`, (results)=> {
@@ -5517,7 +5537,8 @@ const setBondsLocalVariables = () => {
 			console.log('inside repeating section');
 
 			setAttrs(update,{silent:true},()=>{
-				console.log('Bonds updated on open');
+               console.info('update',update);
+			   console.log('Bonds updated on open');
 			});	
 		});
 	});
@@ -5769,14 +5790,17 @@ const updatesanitypoints = (tmp_sanity_points,sanity_points_old,sanity_points_ma
 };
 
 const updatebreakingpoints = () => {
-    getAttrs(['power_score','breaking_point','sanity_points','breaking_point_reset','sanity_points_max','sanity_points_old','track_breaking_points'], (values)=> {
+    getAttrs(['power_score','breaking_point','sanity_points','breaking_point_reset','breaking_point_max','sanity_points_max','sanity_points_old','track_breaking_points'], (values)=> {
         const update = {};
         const flag=values.track_breaking_points==='active' ? true : false;
         const power_score = parseInt(values.power_score, 10) || 0;
         const breaking_point = parseInt(values.breaking_point, 10) || 0;
+        const breaking_point_max = parseInt(values.breaking_point_max, 10) || 0;
         const sanity_points_old = parseInt(values.sanity_points_old, 10) || 0;
         const sanity_points_max = parseInt(values.sanity_points_max, 10) || 0;
         const tmp_sanity_points = parseInt(values.sanity_points, 10) || 0;
+        const reached_breaking_point = breaking_point<breaking_point_max ? 1 : 0;
+        update['reached_breaking_point'] = reached_breaking_point;
         update_bp_san_ritual(tmp_sanity_points,sanity_points_old,sanity_points_max,power_score,breaking_point,update,flag);
 
     });
@@ -5809,20 +5833,29 @@ const setResetBreakingPointsOnOpen = () => {
     if (version < 1.05) {
        version_0_105();
     } 
-    if (version <1.5) {
+    else if (version <1.5) {
         version_105_150();
     }
-    if (version<1.7) {
+    else if (version<1.7) {
         version_150_170();
     }
-    if (version<2.0) {
+    else if (version<2.0) {
         version_170_200();
     }
-    if (version<2.01) {
+    else if (version<2.01) {
         version_200_201();
     }
-    if (version<2.02) {
+    else if (version<2.02) {
         version_201_202();
+    }
+    else if (version<2.03) {
+        version_202_203();
+    }
+    else if (version<2.04) {
+        version_203_204();
+    }
+    else if (version<2.05) {
+        version_204_205();
     }
 };
 
@@ -5910,7 +5943,7 @@ const version_150_170 = () => {
 // UPDATE TO VERSION 2.0
 const version_170_200 = () => {
     let codeversion=2.0;
-    let update={};
+    const update={};
     update['version']=codeversion;
     getAttrs(["motivations","character_name","name","sanity_points","violence_3","helplessness_3","violence_2","helplessness_2",
     "sanity_points_old","sanity_points","breaking_point_old","breaking_point_old"],function(v){
@@ -5956,7 +5989,7 @@ const version_170_200 = () => {
 // UPDATE TO VERSION 2.0
 const version_200_201 = () => {
     let codeversion=2.01;
-    let update={};
+    const update={};
     console.log('version:',codeversion);
     update['version']=codeversion;
 
@@ -5979,8 +6012,7 @@ const version_200_201 = () => {
             });
             getAttrs(repfields,(values) => {
                     console.info('fullarray',values);
-                    var update = {};
-
+          
                     ids.forEach(id => {
                         const repsecid= `repeating_${section}_${id}_`;
 
@@ -6023,7 +6055,7 @@ const version_200_201 = () => {
                             const value_ammo = Math.max(parseInt(values[`${repsecid}ammo`],10) || 0,0)  ;
                             if (value_ammo>0){
                                 update[`${repsecid}ammo_total`]=value_ammo;
-                                update[`${repsecid}hasammo`]=1;
+                                update[`${repsecid}hasammo`]='active';
                                 update[`${repsecid}ammo`]=value_ammo;
                             } else {
                                 update[`${repsecid}hasammo`]=0;
@@ -6065,47 +6097,177 @@ const version_200_201 = () => {
 
 const version_201_202 = () => {
     let codeversion=2.02;
-    let update={};
+    const update={};
     console.log('verion:',codeversion);
     update['version']=codeversion;
     getAttrs(["sheet_type"], values => {
+        var names=[];
+        var rank=[];
+                
         if (values.sheet_type==='npc'){
             update['sheet_type']='npc';
             getSectionIDs(`skills`, ids => {
-                var names=[];
-                var rank=[];
                 ids.forEach(id => {
                     names.push(`repeating_skills_${id}_name`);
                     rank.push(`repeating_skills_${id}_rank`);
                 });
-                // make it into an object with keys = names and values = rank
-
-
-                getAttrs(names.concat(rank), values => {
-                    const update={};
-                    var ids_to_remove=[]; // for the ids that I copy in the named skills
-                    names.forEach((name,idx) => {
-                        const skillname=values[name].toLowerCase().replace(/ /g, "_");
-                        const rankvalue=values[rank[idx]];
-                        const id_value=name.split('_')[2];
-                        if (arrays['_skills'].includes(skillname)){
-                            update[`${skillname}`]=rankvalue;
-                            update[`${skillname}_visible`]='visible';
-                            ids_to_remove.push(id_value);
-                        }
-                    });
-                    console.info('update npc skills',update);
-                    setAttrs(update, {silent:true}, () => {
-                        console.log('updated skills');
-                        ids_to_remove.forEach(id => {
-                            removeRepeatingRow(`repeating_skills_${id}`);
-                        });
-                        console.log('removed repeating skills');
-                        versioning(codeversion);
-                    });
-                });
             });
-        };
+        };        
+            // make it into an object with keys = names and values = ran
+               
+            
+        getAttrs(names.concat(rank), values => {
+            var ids_to_remove=[]; // for the ids that I copy in the named skills
+            names.forEach((name,idx) => {
+                const skillname=values[name].toLowerCase().replace(/ /g, "_");
+                const rankvalue=values[rank[idx]];
+                const id_value=name.split('_')[2];
+                if (arrays['_skills'].includes(skillname)){
+                    update[`${skillname}`]=rankvalue;
+                    update[`${skillname}_visible`]='visible';
+                    ids_to_remove.push(id_value);
+                }
+            });
+            console.info('update npc skills',update);
+            
+            setAttrs(update, {silent:true}, () => {
+                console.log('updated skills');
+                ids_to_remove.forEach(id => {
+                    removeRepeatingRow(`repeating_skills_${id}`);
+                });
+                console.log('removed repeating skills');
+                versioning(codeversion);
+            });
+            });
+    });
+};
+
+const version_202_203 = () => {
+    const codeversion = 2.03
+    const update ={}
+    console.log('verion:',codeversion);
+    update['version'] = codeversion;
+    const old_named_skills=['art','craft','pilot','military_science','science'];
+    const old_adaptation = ['violence_1','violence_2','violence_3','helplessness_1','helplessness_2','helplessness_3'];
+    const old_named_skills_names=old_named_skills.map(x=> `${x}_name`)
+    getAttrs(old_adaptation.concat(old_named_skills_names).concat(old_named_skills).concat(['willpower_points_max','charisma_score']),(values) =>{
+        if (values.hasOwnProperty('art_name')){
+            const art_value=setMinMax(values[`art`]);
+            const art_name = values[`art_name`];
+            update[`art_1`]=art_value;
+            update[`art_1_name`]=art_name;
+        }
+        if (values.hasOwnProperty('craft_name')){
+            const craft_value = setMinMax(values[`craft`]);
+            const craft_name  = values[`craft_name`];
+            update[`craft_1`]=craft_value;
+            update[`craft_1_name`]=craft_name;
+        }
+        // complete for pilot, military_science, science
+        if (values.hasOwnProperty('pilot')) {
+            const pilot_value= setMinMax(values[`pilot`]);
+            const pilot_name = values[`pilot_name`];
+            update[`pilot_1`] = pilot_value;
+            update[`pilot_1_name`] = pilot_name;
+        }
+
+                
+        if (values.hasOwnProperty('military_science')) {
+            const military_science_value = setMinMax(values[`military_science`]);
+            const military_science_name = values[`military_science_name`];
+            update[`military_science_1`] = military_science_value;
+            update[`military_science_1_name`] = military_science_name;
+        }
+
+        if (values.hasOwnProperty('science')) {
+            const science_value = setMinMax(values[`science`]);
+            const science_name = values[`science_name`];
+            update[`science_1`] = science_value;
+            update[`science_1_name`] = science_name;
+        }
+
+        if (values.hasOwnProperty('violence_1')) {
+            const violence_1 = values[`violence_1`];
+            const violence_2 = values[`violence_2`];
+            const violence_3 = values[`violence_3`];
+            var violence = -1;
+            if (violence_1 ==1) {violence =0}
+            if (violence_2 ==2) {violence =1}
+            if (violence_3 ==3) {violence =2}
+            update[`violence`] = violence;
+            if (violence ==2) {update[`violence_adapted`]==1}
+        }
+        if (values.hasOwnProperty('helplessness_1')) {
+            const helplessness_1 = values[`helplessness_1`];
+            const helplessness_2 = values[`helplessness_2`];
+            const helplessness_3 = values[`helplessness_3`];
+            var helplessness = -1;
+            if (helplessness_1 ==1) {helplessness =0}
+            if (helplessness_2 ==2) {helplessness =1}
+            if (helplessness_3 ==3) {helplessness =2}
+            update[`helplessness`] = helplessness;
+            if (helplessness ==2) {update[`helplessness_adapted`]==1}
+        }
+        
+        setAttrs(update, {silent:true}, () => {
+            console.log('updated named skills and adaptations');
+            versioning(codeversion);
+            console.info(update);
+        });
+    });
+};
+
+const version_203_204= () => {
+    const codeversion = 2.04;
+    const update ={};
+    console.log('verion:',codeversion);
+    update['version'] = codeversion;
+  
+    getAttrs(['willpower_points_max','charisma_score'],values => {
+        getSectionIDs('bonds',ids => {
+            const repfields=[];
+            ids.forEach(id => {
+                repfields.push(`repeating_bonds_${id}_score`);
+            });
+            getAttrs(repfields,bond_values => {
+                const willpower_points_max=values['willpower_points_max'];
+                const charisma_score = values['charisma_score'];
+
+                repfields.forEach(field => {
+                    if ((parseInt(bond_values[field])||0)>=willpower_points_max){
+                        update[field]=charisma_score;
+                        update[`${field}_old`]=charisma_score;
+                    }
+                });
+
+                setAttrs(update, {silent:true}, () => {
+                    console.log('updated named skills and adaptations');
+                    versioning(codeversion);
+                    console.info(update);
+                });
+                
+            });
+        });
+    });
+};
+
+const version_204_205 = () => {
+    const codeversion = 2.05;
+    const update ={};
+    console.log('verion:',codeversion);
+    update['version'] = codeversion;
+    getAttrs(['sheet_type','breaking_point','breaking_point_max'], values => {
+        if (values[`sheet_type`] !== 'handler'){
+            current_bp=parseInt(values[`breaking_point`])||0;
+            max_bp=parseInt(values[`breaking_point_max`])||0;
+            update[`reached_breaking_point`]=current_bp<max_bp ? 1 : 0;
+            
+        }
+        setAttrs(update, {silent:true}, () => {
+            console.log('updated reached breaking point');
+            versioning(codeversion);
+            console.info(update);
+        });
     });
 }
 
@@ -6127,7 +6289,8 @@ const changeBondButtonColorOnOpen = () => {
                 update['repeating_bonds_'+id+'_color'] = BondButtonColor(score);
             });
             setAttrs(update, {silent:true}, () => {
-                console.log('Bond color updated');
+               console.info('update',update);
+               console.log('Bond color updated');
 
             });
         });
@@ -6205,7 +6368,8 @@ const updateRepeatingRollsonOpen = (update,character_id) => {
 				Object.assign(update, updateRepeatingRolls(section, attrName, id, character_id));
 			});					
 			setAttrs(update, {silent:true}, () => {
-				console.log('Repeating and Normal Rolls updated');
+               console.info('update',update);
+			   console.log('Repeating and Normal Rolls updated');
 
 			});				
 		});
@@ -6229,7 +6393,7 @@ const changeRepeatingRolls = (section,attrName,id) => {
 		}
 
 		setAttrs(update, {silent:true}, () => {
-
+               console.info('update',update);
 		});
 	});
 };
@@ -6312,7 +6476,7 @@ const rollSkillAndStats=(rollValue,rollName,isSkill) => {
 
 		update=check_for_failed_skill(rollName,outcome.isSuccess,isSkill);
 		setAttrs(update,{silent:false}, () => {
-
+               console.info('update',update);
 		});
 
 	});
@@ -6351,7 +6515,7 @@ const rollBonds=(rollValue,_value,_names,_parameters) => {
 
 		finishRoll(results.rollId,newroll);
 		setAttrs(update,{silent:false}, () => {
-
+            console.info('update',update);
 		});
 	});
 };
@@ -6531,7 +6695,7 @@ const clicked_repeating_damages = (parameters,names,type_prefix='damage') => {
 				const update={};
 				update[names['ammo']]=newroll['current_ammo'];
 				setAttrs(update, () => {
-
+               		console.info('update',update);
 				});
 			}
 		});
@@ -6958,7 +7122,8 @@ const paythecost=(sanity_loss,other_costs,fraction=1) => {
             finishRoll(results.rollId,newroll);
 
             setAttrs(update, {silent:true}, () => {
-                updatebreakingpoints() // I need to update the breaking points in the callback
+               console.info('update',update);
+               updatebreakingpoints() // I need to update the breaking points in the callback
 
             });
         });
@@ -7283,7 +7448,7 @@ const ritual_rolls_info = (repsecid) => {
         update[`${repsecid}_cost_text`] = `${String(costs_text).toUpperCase()}`;
 
         setAttrs(update, {silent:true}, () => {
-
+               console.info('update',update);
         });
     });
 };
@@ -7314,7 +7479,7 @@ usedModifier = (e,callback) => {
   on(`clicked:reset_global_modifier`, () => {
     const update={'global_modifier_number':''};
     setAttrs(update, {silent:true}, () => {
-        
+        console.info('update',update);    
     });
 });
 
@@ -7616,7 +7781,7 @@ arrays['_colored_derivative'].forEach(vitality => {
             update[`${vitality}_points`]=value;
 
             setAttrs(update, {silent:false}, ()=>{
-
+               console.info('update',update);
             });
         });
     });
@@ -7639,7 +7804,7 @@ arrays['_colored_derivative'].forEach(vitality => {
                 update[input]=0;
                 if (section !=='skills') {update[skillspan]=update[input];}
                 setAttrs(update,{silent:true},()=>{
-
+                  console.info('update',update);
                 });
             }
 
@@ -7648,7 +7813,7 @@ arrays['_colored_derivative'].forEach(vitality => {
                 update[input]=number;
                 if (section !=='skills') {update[skillspan]=update[input];}
                 setAttrs(update,{silent:true},()=>{
-
+                  console.info('update',update);
                 });
             }
 
@@ -7659,7 +7824,7 @@ arrays['_colored_derivative'].forEach(vitality => {
                     const number= setMinMax(values[skillname]);
                     if (section !=='skills') {update[skillspan]=number;}
                     setAttrs(update,{silent:true},()=>{
-
+                        console.info('update',update);
                     });
                 });
             };
@@ -7679,6 +7844,7 @@ _only_number.forEach(_sect_object => {
                     const number=setMinMax(value[input]);
                     update[input]=number;
                     setAttrs(update,{silent:true},()=>{
+                        console.info('update',update);
                     });
                 });
             });
@@ -7701,6 +7867,7 @@ _number_or_roll.forEach(_sect_object => {
                     const number=parseRoll(value[input]);
                     update[input]=number;
                     setAttrs(update,{silent:true},()=>{
+                        console.info('update',update);
                     });
                 });
             });
@@ -7715,6 +7882,7 @@ arrays['_sanity_loss'].forEach(sanity => {
             const update={};
             update[sanity]=value;
             setAttrs(update, {silent:true}, () => {
+               console.info('update',update);
                console.info(`Sanity points updated`); 
             });
         });    
@@ -7749,7 +7917,8 @@ _shotgun_or_blast_radius.forEach(main => {
 			}
 
 			setAttrs(update,{silent:true},()=>{
-				console.log('Shotgun or Blast Radius updated');
+               console.info('update',update);
+               console.log('Shotgun or Blast Radius updated');
 
 			});
 		});
@@ -7775,7 +7944,8 @@ arrays['_settings_wp'].forEach(wp_setting => {
 			}
 
 			setAttrs(update, {silent:true}, () => {
-				console.log('Willpower Settings updated');
+               console.info('update',update);
+               console.log('Willpower Settings updated');
 			});
 		});
 	});
@@ -7787,7 +7957,8 @@ on(`change:repeating_skills:rank`, (eventInfo) => {
 	update[eventInfo.sourceAttribute]=newValue;
 
 	setAttrs(update,{silent:true},()=>{
-		console.log('Repeating Skills updated on change');
+        console.info('update',update);
+        console.log('Repeating Skills updated on change');
 	});
 });
 
@@ -7806,6 +7977,7 @@ on(`change:unnatural`, function(eventInfo) {
     update={sanity_points_max: 99-newvalue, unnatural: newvalue};
 
     setAttrs(update,{silent:true},()=>{
+        console.info('update',update);
         console.log('Sanity points updated');
     });
 });
@@ -7873,7 +8045,7 @@ on(`change:breaking_point_reset`,(eventInfo)=>{
         const update = {};
         update['breaking_point_reset'] = Math.min(Math.max(0,breaking_point_reset),99);
         setAttrs(update, {silent:true}, () => {
-
+            console.info('update',update);
         });
     });
 });
@@ -7887,7 +8059,7 @@ on(`change:global_modifier_number`, () => {
         const modifier = parseInt(values['global_modifier_number']) || 0;
         const update = {global_modifier_number:modifier};
         setAttrs(update, {silent:true}, () => {
-
+            console.info('update',update);
         });
     });
 });
@@ -7898,9 +8070,10 @@ on(`change:repeating_skills remove:repeating_skills`, () => {
 
 on(`change:repeating_weapons:armor_piercing`, () => {  
     getAttrs(['repeating_weapons_armor_piercing'], (values) => {
-          const update = {};
-          update_armor_piercing(values.repeating_weapons_armor_piercing,update);
-          setAttrs(update, {silent:true}, () => {
+        const update = {};
+        update_armor_piercing(values.repeating_weapons_armor_piercing,update);
+        setAttrs(update, {silent:true}, () => {
+            console.info('update',update);
         });    
     });
 });
@@ -7912,6 +8085,7 @@ on(`change:repeating_weapons:ammo_total remove:repeating_weapons`, (values) => {
     update[`repeating_weapons_hasammo`] = ammo_total > 0 ? 'active' : '0';
 
     setAttrs(update, {silent:true}, () => {
+        console.info('update',update);
     });
 });
 
@@ -7920,6 +8094,7 @@ on(`change:repeating_weapons:ammo`, (values) => {
     const update = {};
     update[`repeating_weapons_ammo`] = ammo;
     setAttrs(update, {silent:true}, () => {
+        console.info('update',update)
     });
 });
 
@@ -7951,7 +8126,8 @@ arrays['_adaptation'].forEach(adaptation => {
 			const update={};
 			update[`${adaptation}_adapted`]= value===2 ? 1 : 0;
 			setAttrs(update, {silent:true}, () => {
-				update[`${adaptation}_adapted`] == 1 ? console.log(`${adaptation} adapted`) : console.log(`${adaptation} not adapted`);
+               console.info('update',update);
+               update[`${adaptation}_adapted`] == 1 ? console.log(`${adaptation} adapted`) : console.log(`${adaptation} not adapted`);
 			});
 		});
 	});
@@ -7970,7 +8146,7 @@ on(`change:useKey`, () => {
 
 
         setAttrs(update, {silent:true}, () => {
-
+            console.info('update',update);
         });
     });
 }); 
@@ -8021,19 +8197,18 @@ const arrays_drop={
 		"computer_science","craft_1","craft_1_name","craft_2","craft_2_name","criminology","demolitions","disguise","dodge","drive","firearms",
 		"first_aid","forensics","heavy_machinery","heavy_weapons","history","humint","law","medicine","melee_weapons","military_science_1",
 		"military_science_1_name","military_science_2","military_science_2_name","navigate","occult","persuade","pharmacy","pilot_1","pilot_1_name",
-		"pilot_2","pilot_","psychotherapy","ride","science_1","science_1_name","science_1","science_2_name","search","sigint",	"stealth","surgery",
+		"pilot_2","pilot_2_name","psychotherapy","ride","science_1","science_1_name","science_1","science_2_name","search","sigint",	"stealth","surgery",
 		"survival",	"swim","unarmed_combat","unnatural",
 		"armor_and_gear","personal_details_and_notes","motivations","bond_number"],
 	visible: ["accounting","alertness","anthropology","archeology","art_1","art_1_name","art_2","art_2_name","artillery","athletics","bureaucracy",
-		"computer_science","craft_1","craft_1_name","craft_2","craft_2_name","criminology","demolitions","disguise","dodge","drive","firearms",
-		"first_aid","forensics","heavy_machinery","heavy_weapons","history","humint","law","medicine","melee_weapons","military_science_1",
-		"military_science_1_name","military_science_2","military_science_2_name","navigate","occult","persuade","pharmacy","pilot_1","pilot_1_name",
-		"pilot_2","pilot_","psychotherapy","ride","science_1","science_1_name","science_1","science_2_name","search","sigint",	"stealth","surgery",
+		"computer_science","craft_1","craft_2","criminology","demolitions","disguise","dodge","drive","firearms","first_aid","forensics","heavy_machinery",
+		"heavy_weapons","history","humint","law","medicine","melee_weapons","military_science_1", "military_science_2","navigate","occult","persuade","pharmacy","pilot_1",
+		"pilot_2","psychotherapy","ride","science_1","science_1","search","sigint","stealth","surgery",
 		"survival",	"swim","unarmed_combat","unnatural"],
 	bond: ["name","bond_score"],
 	skill: ["name","rank"],
 	special_training:["name","skill_or_stat_used"],
-	weapon :["name", "skill_percent", "base_range", "damage", "armor_piercing", "lethality_percent", "ammo"],
+	weapon :["name", "skill_percent", "base_range", "damage", "armor_piercing", "lethality_percent", "ammo","ammo_total"],
 	rep: {bond: "repeating_bonds_",special: "repeating_special_",skill:"repeating_skills_",ritual:"repeating_rituals_",weapon:"repeating_weapons_"},
 }
 
@@ -8244,8 +8419,10 @@ const handleDragandDrop = () => {
 			return console.warn("Drag and drop returned  broken value");
 		}
 		const updateAttrsTot = {...updateAttrs, ...{drop_name:"", drop_data:"",drop_category:""}};
-		console.log(updateAttrsTot);
-		setAttrs(updateAttrsTot);
+		
+		setAttrs(updateAttrsTot,{silent:false},()=>{
+				console.info("Dropped Values:",updateAttrsTot);
+		});
 
 	});
 }
@@ -8257,9 +8434,9 @@ on("change:drop_data", (eventInfo) => {
 	// do something with data
 });
   
-const agent_info_to_get=['character_id','hit_points', 'willpower_points', 'sanity_points', 'strength_score', 'constitution_score'
+const agent_info_to_get=['character_name','character_id','hit_points', 'willpower_points', 'sanity_points', 'strength_score', 'constitution_score'
     , 'dexterity_score', 'intelligence_score', 'power_score', 'charisma_score', 'violence_adapted',
-    'helplessness_adapted'];
+    'helplessness_adapted','reached_breaking_point'];
 
 on(`change:repeating_agents:name`, (eventInfo)=> {
     const id = eventInfo.sourceAttribute.split(`_`)[2];
@@ -8268,28 +8445,42 @@ on(`change:repeating_agents:name`, (eventInfo)=> {
         const update = {};
         
         const character_identification = values[`${repsecid}_name`] !== undefined ? values[`${repsecid}_name`] : ``;
-        update_repeating_agents(repsecid,character_identification);
+        update_repeating_agents(update,repsecid,character_identification);
         
     });
 });
 
-
-const update_repeating_agents = (repsecid,character_identification) => {
+const not_numeric_pass= ['character_name','character_id'];
+const adaptation_fields = ['violence_adapted','helplessness_adapted'];
+const update_repeating_agents = (update,repsecid,character_identification) => {
     var string = `&{template:pass-values}`;
+    //var string = `!`;
+    const rxGrab = /^0\[(.*)\]\s*$/;
     agent_info_to_get.forEach((field)=>{
-        string += `{{${field}=[[@{${character_identification}|${field}}]]}} `;
+        if (not_numeric_pass.includes(field)){
+            string += `{{${field}=[[0[@{${character_identification}|${field}}] ]]}}`;
+        }else{
+            string += `{{${field}=[[@{${character_identification}|${field}}]]}} `;
+        }
     });
     string+=`{{breaking_point=[[@{${character_identification}|breaking_point}]]}}`;
     string+=`{{breaking_point_max=[[@{${character_identification}|breaking_point_max}]]}}`;
     if (string === ``) {return;}
     startRoll(string,(results)=>{
         agent_info_to_get.forEach((field)=>{
-            update[`${repsecid}_${field}`] = results.results[field].result
+            if (not_numeric_pass.includes(field)){
+                update[`${repsecid}_${field}`] = results.results[field].expression.match(rxGrab)[1];
+            }else if (field === `reached_breaking_point`){
+                update[`${repsecid}_${field}`] = results.results[field].result==1 ? `yes` : `no`;
+            }else if (adaptation_fields.includes(field)){
+                update[`${repsecid}_${field}`] = results.results[field].result==1 ? `adapted` : `not adapted`;
+            }else{
+                update[`${repsecid}_${field}`] = results.results[field].result
+            }
         });
-        const bp=parseInt(results.results.breaking_point.result)||0;
-        const bpmax=parseInt(results.results.breaking_point_max.result)||0;
-        update[`${repsecid}_has_breaking_points`]=bp<bpmax;
+        
         setAttrs(update,{silent:true},()=>{
+            console.info('update',update);
             console.log(`Updated ${repsecid} with ${character_identification}`);
         });
         finishRoll(results.rollId);    
@@ -8302,17 +8493,34 @@ on(`sheet:opened clicked:update_agents`,()=>{
             getSectionIDs(`agents`,(ids)=>{
                 var repsecids=[];
                 ids.forEach((id)=>{
-                    repsecids.push(`repeating_agents_${id}_character_id`);
+                    repsecids.push(`repeating_agents_${id}`);
                 });
                 
-                getAttrs(repsecids,(values)=>{
-                    repsecids.forEach( repsecid =>{
-                        const character_identification = values[`${repsecid}_character_id`];
-                        if (character_identification !== ``) {update_repeating_agents(repsecid,character_identification);}
-                    });
-                });
+// map repsecids to make it into an array containing for each repsecid <repsecid>_character_id and <repsecid>_name
+
+
+
+                getAttrs(
+                    repsecids.flatMap(repsecid => [`${repsecid}_name`, `${repsecid}_character_id`]),
+                    (values) => {
+                        repsecids.forEach(repsecid => {
+                            const update = {};
+                            const character_identification = get_character_identification(values, repsecid);
+                            if (character_identification !== ``) {
+                                update_repeating_agents(update, repsecid, character_identification);
+                            }
+                        });
+                    }
+                );
             });
         };
     });
 });
+
+const get_character_identification= (values,repsecid) => {
+    // FUTURE: Cannot use character_id as a key for an attribute only for abilities in roll20
+    const char_id=``;// values[`${repsecid}_character_id`];
+    const char_name=values[`${repsecid}_name`];
+    return char_id !== `` ? char_id : char_name;
+}
 </script>
